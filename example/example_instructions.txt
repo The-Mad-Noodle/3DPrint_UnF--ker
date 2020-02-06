@@ -1,0 +1,18 @@
+Example Instructions and Tutorial
+----------------------------------
+
+1. Open 3D Print UnFucker.exe
+
+2. Click "Open Gcode" button and navigate to /Program Files/3D Print Unfucker/example/dock.gcode
+
+3. Input the line number at which your 3D print failed
+
+4. Input the height as defined by your slicer or gCode file
+
+5. Input the desired Start print temperature
+
+6. Click "UNFUCK GCODE" button
+
+7. Select "Yes" to open gcode in slicer of choice, click "No" to complete
+
+8. Reveiw your file and compare to 'example/Print Recovery Template.txt'

@@ -1,5 +1,4 @@
 '''
-"""
 -----------------------------------------------------------------------------------------
    _____ ____     ____       _       __     __  __      ______           __
   |__  // __ \   / __ \_____(_)___  / /_   / / / /___  / ____/_  _______/ /_____  _____
@@ -8,9 +7,9 @@
 /____/_____/  /_/   /_/  /_/_/ /_/\__/   \____/_/ /_/_/    \__,_/\___/_/|_|\___/_/
                                                         by The Mad Noodle v.0.0.5
 -----------------------------------------------------------------------------------------
-The Failed 3D print gcode Processor.
+The Failed 3D print recovery gcode processor.
 Find the line number of the point where your 3D print failed
-and the UnFucker will modfiye the gcode to start at the correct point
+and the UnFucker will modify the gcode to start at the correct point
 
 By The Mad Noodle
 02/05/2020
@@ -100,7 +99,7 @@ def fix_gcode():
         mb.showerror("error", "This is not a usable line number!\n"
                               "Add or subtract a few from your current number and try again.")
 
-def open_source():
+def open_source_file():
     global recovery_filename
     window.source_filename = filedialog.askopenfilename(initialdir=default_open_dir, title="Select Source file",
                                                filetypes=(("gCode files", "*.gcode"), ("all files", "*.*")))
@@ -113,16 +112,16 @@ def open_source():
 # == GUI Setup ==================================================================
 window = Tk()
 
-window.title("3D Print UnFucker v0.0.1")
+window.title("3D Print UnFucker v0.0.5")
 #window.geometry('270x100')
-window.iconbitmap('unf.ico')
+window.iconbitmap('img/unf.ico')
 
 # -- Logo
-logo_img = PhotoImage(file='logo.png')
+logo_img = PhotoImage(file='img/logo.png')
 title_lbl = Label(window, image=logo_img, font='courier')
 title_lbl.grid(columnspan=3, row=0, padx=5, pady=5)
 
-source_btn = Button(window, text="Open Gcode", command=open_source)
+source_btn = Button(window, text="Open Gcode", command=open_source_file)
 source_btn.grid(column=0, row=1, padx=5, pady=5)
 
 source_text = Entry(window)
@@ -143,7 +142,7 @@ temp_lbl.grid(column=0, row=4, sticky=E, padx=5, pady=5)
 temp_field = Entry(window)
 temp_field.grid(column=1, row=4, sticky=W, padx=5, pady=5)
 
-button_img = PhotoImage(file='button_label.png')
+button_img = PhotoImage(file='img/button_label.png')
 unfuck_btn = Button(window, image=button_img, command=fix_gcode)
 unfuck_btn.grid(column=1, columnspan=2, row=5, sticky=E, padx=5, pady=5)
 

@@ -1,0 +1,37 @@
+; This is the template for recovering the a 3D Print with 3D Print UnFucker
+;By The Mad Noodle
+;11/12/19
+
+;[LAYER Z HEIGHT] = The Z height of the layer you are restarting on
+;[LAST E VALUE] = The last extruder values, pulled from the first line of the new starting point
+;[START Z HEIGHT OFFSET] = How many mm the extruder raises at the start of a print
+;[NOZZLE TEMP] = Nozzle temperature set
+
+;================ GCODE START ===================================
+G90
+M82
+G28 X0 Y0
+
+M201 X500 Y500; Set X and Y acceleration values
+M204 S500; Set default acceleration
+
+M104 S[NOZZLE TEMP] T0
+M109 S[NOZZLE TEMP] T0
+
+M117 God Speed and Good Luck
+
+T0
+G92 E[LAST E VALUE] 
+G92 Z{[LAYER Z HEIGHT] + [START Z HEIGHT OFFSET]}
+
+;Line [LINE NUM] Restart Z=[LAYER Z HEIGHT] ;As a note
+;=================END COPY=========================================
+
+;In the gcode file you would like to recover, find the line you would like to start at
+;and delete everything above that line, than copy the gcode from above before that line. 
+
+;===========Starting Point of recovery gcode========================
+G1 X415.367 Y181.696 E11.1728 F1800 ;inital starting line
+G1 Z[LAYER Z HEIGHT]
+G1 X404.083 Y170.412 E13.3352
+G1 X401.315 Y169.153 E13.7472
