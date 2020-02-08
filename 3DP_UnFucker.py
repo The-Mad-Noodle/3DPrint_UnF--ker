@@ -71,7 +71,7 @@ def fix_gcode():
                                  "Add or subtract a few from your current number and try again.")
             x = x + 1
 
-        inserted_gcode = ["; " + recovery_filename + " failed at line " + str(line_number) + "\n", "; gCode Defuct with Print Unfucker v.0.0.1 by The Mad Noodle\n\n"
+        inserted_gcode = ["; " + recovery_filename + " failed at line " + str(line_number) + "\n", "; gCode Defuct with Print Unfucker v.0.0.5 by The Mad Noodle\n\n"
              "G90\n", "M82\n", "G28 X0 Y0\n\n", "M201 X500 Y500; Set X and Y acceleration values\n", "M204 S500; Set default acceleration\n\n",
              "M104 S" + str(print_temp) + " T0\n", "M109 S" + str(print_temp) + " T0\n\n", "M117 God Speed and Good Luck\n\n",
              "T0\n", "G92 E" + str(last_E) + "\n", "G92 Z" + str(Z_height_offset) + "\n\n\n", ]
@@ -90,6 +90,7 @@ def fix_gcode():
         f.close()
         copy.close()
 
+#TODO Open folder rather than file
         if mb.askyesno('Done', 'Your print is now UnFucked!\nWould you like to review your gcode?'):
             os.startfile(destination_file)
 
