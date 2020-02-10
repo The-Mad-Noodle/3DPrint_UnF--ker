@@ -21,9 +21,7 @@ Unfortunately, for most people, it's not that easy and it can be very **_intimid
 How does it work?
 -
 
-The 3D Print Unfucker takes in a few parameters, and the gcode file of your failed print, it the software then parses the file removes every command 
-from the beginning to the move it failed at and inserts a series of gcode commands that allows the printer to start from the exact move command (G1)  
-it left off at without the need of the standard start script that would severely interfere with the print that's on the bed. 
+The 3D Print Unfucker takes in a few parameters, as well as the original gcode file of your failed print, the software then parses the file removes every command from the beginning of the file to the move it failed at. Once it only has the lines that are needed, it inserts a series of gcode commands that allows the printer to start from the exact move command (G1) it left off at without the need of the standard start script that would severely interfere with the print that's on the bed. 
 
 Using the software
 -
