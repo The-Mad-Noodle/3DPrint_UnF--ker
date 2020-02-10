@@ -16,6 +16,8 @@ By The Mad Noodle
 v0.0.5
 '''
 
+# TODO Create SFW version of the software (3D PUF)
+
 import os
 from tkinter import *
 from tkinter.ttk import *
@@ -23,20 +25,25 @@ from tkinter import filedialog
 from tkinter import messagebox as mb
 import configparser
 
-
 # == Configuration Setup ==============================================================
+
+# TODO Create configuration window.
+#  -Option to save and load different printer config files
+#  -with save button and load print "drop down"
+#  -Separate config files to new folder
 
 configFile = 'config.ini'
 config = configparser.ConfigParser()
 config.read(configFile)
 
+# TODO Add firmware options, I.E. Marlin, Smoothie, Makerbot
 start_z_move = config.get('settings', 'start_z_move')
 recovered_suffix = config.get('settings', 'recovered_file_suffix')
 default_open_dir = config.get('settings', 'default_open_dir')
 
+
 # == Functions ========================================================================
 def fix_gcode():
-
     try:
         recovery_filename = source_text.get()
         line_number = int(line_field.get())
@@ -44,7 +51,6 @@ def fix_gcode():
         print_temp = temp_field.get()
 
         Z_height_offset = float(Z_height) + float(start_z_move)
-
 
         if recovery_filename[-6:] != '.gcode':
             mb.showerror("Wrong File Format", "Incorrect file format!\n"
@@ -55,6 +61,7 @@ def fix_gcode():
 
         i = 0
         x = 0
+        # TODO Add option to save Recovery to a different destination
         f = open(recovery_filename, "r")
         destination_name = recovery_filename[:-6]
         destination_file = destination_name + '_' + recovered_suffix + '.gcode'
@@ -68,13 +75,17 @@ def fix_gcode():
                     last_E = line.split('E', 1)[1]
                 except:
                     mb.showerror("error", "This is not a usable line number!\n"
-                                 "Add or subtract a few from your current number and try again.")
+                                          "Add or subtract a few from your current number and try again.")
             x = x + 1
 
-        inserted_gcode = ["; " + recovery_filename + " failed at line " + str(line_number) + "\n", "; gCode Defuct with Print Unfucker v.0.0.5 by The Mad Noodle\n\n"
-             "G90\n", "M82\n", "G28 X0 Y0\n\n", "M201 X500 Y500; Set X and Y acceleration values\n", "M204 S500; Set default acceleration\n\n",
-             "M104 S" + str(print_temp) + " T0\n", "M109 S" + str(print_temp) + " T0\n\n", "M117 God Speed and Good Luck\n\n",
-             "T0\n", "G92 E" + str(last_E) + "\n", "G92 Z" + str(Z_height_offset) + "\n\n\n", ]
+        # TODO Create additional scripts for other firmwares
+        inserted_gcode = ["; " + recovery_filename + " failed at line " + str(line_number) + "\n",
+                          "; gCode Defuct with Print Unfucker v.0.0.5 by The Mad Noodle\n\n"
+                          "G90\n", "M82\n", "G28 X0 Y0\n\n", "M201 X500 Y500; Set X and Y acceleration values\n",
+                          "M204 S500; Set default acceleration\n\n",
+                          "M104 S" + str(print_temp) + " T0\n", "M109 S" + str(print_temp) + " T0\n\n",
+                          "M117 God Speed and Good Luck\n\n",
+                          "T0\n", "G92 E" + str(last_E) + "\n", "G92 Z" + str(Z_height_offset) + "\n\n\n", ]
 
         copy.writelines(inserted_gcode)
         f.seek(0)
@@ -90,7 +101,7 @@ def fix_gcode():
         f.close()
         copy.close()
 
-#TODO Open folder rather than file
+        # TODO Open containing folder rather than the file
         if mb.askyesno('Done', 'Your print is now UnFucked!\nWould you like to review your gcode?'):
             os.startfile(destination_file)
 
@@ -100,21 +111,26 @@ def fix_gcode():
         mb.showerror("error", "This is not a usable line number!\n"
                               "Add or subtract a few from your current number and try again.")
 
+
 def open_source_file():
     global recovery_filename
     window.source_filename = filedialog.askopenfilename(initialdir=default_open_dir, title="Select Source file",
-                                               filetypes=(("gCode files", "*.gcode"), ("all files", "*.*")))
+                                                        filetypes=(("gCode files", "*.gcode"), ("all files", "*.*")))
     source_text.delete(0, END)
     source_text.insert(0, '')
     source_text.insert(END, window.source_filename)
 
 
-
 # == GUI Setup ==================================================================
+
+# TODO Add menu bar at the top of window (File and Help)
+#  -Link Github and instructional texts in help menu
+#  -Add File menu house the configuration option
+
 window = Tk()
 
 window.title("3D Print UnFucker v0.0.5")
-#window.geometry('270x100')
+# window.geometry('270x100')
 window.iconbitmap('img/unf.ico')
 
 # -- Logo
@@ -148,4 +164,3 @@ unfuck_btn = Button(window, image=button_img, command=fix_gcode)
 unfuck_btn.grid(column=1, columnspan=2, row=5, sticky=E, padx=5, pady=5)
 
 window.mainloop()
-
