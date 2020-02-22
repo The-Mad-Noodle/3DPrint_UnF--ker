@@ -5,15 +5,15 @@
    /_ </ / / /  / /_/ / ___/ / __ \/ __/  / / / / __ \/ /_  / / / / ___/ //_/ _ \/ ___/
  ___/ / /_/ /  / ____/ /  / / / / / /_   / /_/ / / / / __/ / /_/ / /__/ ,< /  __/ /
 /____/_____/  /_/   /_/  /_/_/ /_/\__/   \____/_/ /_/_/    \__,_/\___/_/|_|\___/_/
-                                                        by The Mad Noodle v.0.0.5
+                                                        by The Mad Noodle v.0.0.6
 -----------------------------------------------------------------------------------------
 The Failed 3D print recovery gcode processor.
 Find the line number of the point where your 3D print failed
-and the UnFucker will modify the gcode to start at the correct point
+and the UnF**ker will modify the gcode to start at the correct point
 
 By The Mad Noodle
 02/05/2020
-v0.0.5
+v0.0.6
 '''
 
 # TODO Create SFW version of the software (3D PUF)
@@ -55,7 +55,7 @@ EXAMPLE_PATH = os.path.join(ROOT_DIR, 'example')
 def main_window():
     open_example_folder = lambda: open_file(EXAMPLE_PATH)
     open_github_main = lambda: webbrowser.open_new_tab(github_URL)
-    open_github_3DPF = lambda: webbrowser.open_new_tab(github_URL + '3DPrint-UnFucker')
+    open_github_3DPF = lambda: webbrowser.open_new_tab(github_URL + '3DPrint-UnF**ker')
     open_TMN_website = lambda: webbrowser.open_new_tab('https://www.instagram.com/the_mad_noodle/')
 
     def fix_gcode():
@@ -95,7 +95,7 @@ def main_window():
 
             # TODO Create additional scripts for other firmwares
             inserted_gcode = ["; " + recovery_filename + " failed at line " + str(line_number) + "\n",
-                              "; gCode Defuct with Print Unfucker v.0.0.5 by The Mad Noodle\n\n"
+                              "; gCode Defuct with Print Unf**ker v.0.0.6 by The Mad Noodle\n\n"
                               "G90\n", "M82\n", "G28 X0 Y0\n\n", "M201 X500 Y500; Set X and Y acceleration values\n",
                               "M204 S500; Set default acceleration\n\n",
                               "M104 S" + str(print_temp) + " T0\n", "M109 S" + str(print_temp) + " T0\n\n",
@@ -117,7 +117,7 @@ def main_window():
             copy.close()
 
             # TODO Open containing folder rather than the file
-            if mb.askyesno('Done', 'Your print is now UnFucked!\nWould you like to review your gcode?'):
+            if mb.askyesno('Done', 'Your print is now UnF**ked!\nWould you like to review your gcode?'):
                 open_file(destination_file)
 
             else:
@@ -153,10 +153,13 @@ def main_window():
     #  -Add File menu house the configuration option
     window = Tk()
 
-    window.title("3D Print UnFucker v0.0.5")
+    window.title("3D Print UnF**ker v.0.0.6")
     # window.geometry('270x100')
-    window.iconbitmap('img/unf.ico')
+    window.iconbitmap('img/unf_SFW.ico')
     menubar = Menu(window)
+
+    s = Style()
+    s.configure('My.TFrame', relief=RAISED)
 
     # -- Menu Bar for main window
     # File
@@ -183,38 +186,42 @@ def main_window():
 
     # display the menu
     window.config(menu=menubar)
+
+    main_frame = Frame(window)
+    main_frame.pack()
+
     # -- Logo
-    logo_img = PhotoImage(file='img/logo.png')
-    title_lbl = Label(window, image=logo_img, font='courier')
+    logo_img = PhotoImage(file='img/logo_sfw.png')
+    title_lbl = Label(main_frame, image=logo_img, font='courier')
     title_lbl.grid(columnspan=3, row=0, padx=5, pady=5)
 
     # -- Source file select
-    source_btn = Button(window, text="Open Gcode", command=open_source_file)
+    source_btn = Button(main_frame, text="Open Gcode", command=open_source_file)
     source_btn.grid(column=0, row=1, padx=5, pady=5)
-    source_text = Entry(window)
+    source_text = Entry(main_frame)
     source_text.grid(column=1, row=1, padx=5, pady=5)
 
     # -- Line number field
-    line_lbl = Label(window, text='Line Number:')
+    line_lbl = Label(main_frame, text='Line Number:')
     line_lbl.grid(column=0, row=2, sticky=E, padx=5, pady=5)
-    line_field = Entry(window)
+    line_field = Entry(main_frame)
     line_field.grid(column=1, row=2, sticky=W, padx=5, pady=5)
 
     # -- Z height field
-    z_lbl = Label(window, text='Z-Height:')
+    z_lbl = Label(main_frame, text='Z-Height:')
     z_lbl.grid(column=0, row=3, sticky=E, padx=5, pady=5)
-    z_field = Entry(window)
+    z_field = Entry(main_frame)
     z_field.grid(column=1, row=3, sticky=W, padx=5, pady=5)
 
     # -- temp field
-    temp_lbl = Label(window, text='Temperature:')
+    temp_lbl = Label(main_frame, text='Temperature:')
     temp_lbl.grid(column=0, row=4, sticky=E, padx=5, pady=5)
-    temp_field = Entry(window)
+    temp_field = Entry(main_frame)
     temp_field.grid(column=1, row=4, sticky=W, padx=5, pady=5)
 
-    # -- Unfuck Button
-    button_img = PhotoImage(file='img/button_label.png')
-    unfuck_btn = Button(window, image=button_img, command=fix_gcode)
+    # -- UnF**k Button
+    button_img = PhotoImage(file='img/button_label_sfw.png')
+    unfuck_btn = Button(main_frame, image=button_img, command=fix_gcode)
     unfuck_btn.grid(column=1, columnspan=2, row=5, sticky=E, padx=5, pady=5)
 
     window.mainloop()
@@ -234,7 +241,7 @@ def config_window():
 
     config_win = Tk()
     config_win.title('3DPUF Config')
-    config_win.iconbitmap('img/unf.ico')
+    config_win.iconbitmap('img/unf_SFW.ico')
 
     config_title_lbl = Label(config_win, text='Configuration', font='courier')
     config_title_lbl.grid(columnspan=2, row=0, padx=5, pady=5)
